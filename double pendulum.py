@@ -32,7 +32,8 @@ y1 = -L1*smp.cos(the1)
 x2 = L1*smp.sin(the1)+L2*smp.sin(the2)
 y2 = -L1*smp.cos(the1)-L2*smp.cos(the2)
 
-# Kinetic
+
+
 T1 = 1/2 * m1 * (smp.diff(x1, t)**2 + smp.diff(y1, t)**2)
 T2 = 1/2 * m2 * (smp.diff(x2, t)**2 + smp.diff(y2, t)**2)
 T = T1+T2
@@ -40,7 +41,8 @@ T = T1+T2
 V1 = m1*g*y1
 V2 = m2*g*y2
 V = V1 + V2
-# Lagrangian
+
+
 L = T-V
 
 
