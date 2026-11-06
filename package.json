@@ -1,0 +1,19 @@
+{
+  "name": "chaos-lab",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Real-time interactive double pendulum simulator",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "derive": "python3 physics/derive.py"
+  },
+  "devDependencies": {
+    "typescript": "~5.8.3",
+    "vite": "^6.3.5",
+    "vitest": "^3.2.4"
+  }
+}
