@@ -53,9 +53,7 @@ npm test
 npm run build    # static site in dist/
 ```
 
-## Deploying
-
-`.github/workflows/deploy.yml` builds and publishes to GitHub Pages on every push to `main`. To enable it, go to **Settings → Pages → Build and deployment → Source** and choose **GitHub Actions**.
+The site runs locally. `.github/workflows/ci.yml` runs the tests and the build on every push.
 
 ## Roadmap
 
