@@ -6,6 +6,7 @@
   "description": "Real-time interactive double pendulum simulator",
   "scripts": {
     "dev": "vite",
+    "start": "vite --open",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "test": "vitest run",
@@ -15,5 +16,8 @@
     "typescript": "~5.8.3",
     "vite": "^6.3.5",
     "vitest": "^3.2.4"
+  },
+  "allowScripts": {
+    "esbuild@0.25.12": true
   }
 }
