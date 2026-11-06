@@ -122,8 +122,9 @@ export class Renderer {
     return [(sx - px) / this.scale, -(sy - py) / this.scale];
   }
 
+  /** Small bobs, close to the dots of an ensemble, still growing a little with the mass. */
   bobRadius(mass: number): number {
-    return 7 + 6 * Math.cbrt(mass);
+    return 3.5 + 2 * Math.cbrt(mass);
   }
 
   draw(sim: Simulation, o: DrawOptions): void {
