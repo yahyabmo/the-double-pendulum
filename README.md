@@ -48,7 +48,7 @@ The tests check the generated equations against the textbook closed form. They a
 
 ```bash
 npm install
-npm run dev      # http://localhost:5173
+npm run dev      # http://localhost:5190
 npm test
 npm run build    # static site in dist/
 ```
