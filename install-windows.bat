@@ -6,6 +6,8 @@ rem the app, and shortcuts on the desktop and in the Start menu. The rest of thi
 rem the PowerShell script that does it, which the one-line install of the README also runs.
 set "INSTALLER_DIR=%~dp0"
 set "INSTALLER_FILE=%~f0"
+rem Started from PowerShell 7, Windows PowerShell would look for its modules in those of 7.
+set "PSModulePath="
 powershell -NoProfile -ExecutionPolicy Bypass -Command "Invoke-Expression ([IO.File]::ReadAllText($env:INSTALLER_FILE))"
 echo.
 pause
@@ -49,6 +51,11 @@ function Install-App {
     }
     Expand-Archive -LiteralPath $zip -DestinationPath $dest -Force
   }
+  # .NET rather than Get-FileHash, which lives in a module that may fail to load.
+  function Get-Sha256([string]$path) {
+    $stream = [IO.File]::OpenRead($path)
+    try { return [BitConverter]::ToString([Security.Cryptography.SHA256]::Create().ComputeHash($stream)).Replace('-', '') } finally { $stream.Dispose() }
+  }
   function Get-NodeMajor([string]$exe) {
     try { return [int]((& $exe --version).TrimStart('v').Split('.')[0]) } catch { return 0 }
   }
@@ -77,7 +84,7 @@ function Install-App {
     Invoke-WebRequest -UseBasicParsing -Uri "https://nodejs.org/dist/v$NodeVersion/$folder.zip" -OutFile $zip
     Invoke-WebRequest -UseBasicParsing -Uri "https://nodejs.org/dist/v$NodeVersion/SHASUMS256.txt" -OutFile "$Download\SHASUMS256.txt"
     $line = Get-Content -LiteralPath "$Download\SHASUMS256.txt" | Where-Object { $_ -like "*  $folder.zip" } | Select-Object -First 1
-    if (-not $line -or (Get-FileHash -LiteralPath $zip -Algorithm SHA256).Hash -ne $line.Split(' ')[0]) {
+    if (-not $line -or (Get-Sha256 $zip) -ne $line.Split(' ')[0]) {
       throw 'The Node.js download is damaged: run the installer again.'
     }
     Expand-Zip $zip $Download
