@@ -4,52 +4,53 @@ A real-time, interactive double pendulum simulator that runs in the browser. You
 
 ## Installation
 
-You only need **Node.js 18 or newer**, which is free. Everything else installs itself on the first launch.
+One command installs everything Chaos Lab needs, Node.js included, and puts a **Chaos Lab** shortcut on your desktop and in your applications menu.
 
-### 1. Install Node.js (once)
-
-| System | Easiest way |
-| --- | --- |
-| **Windows** | Download the **LTS** installer from [nodejs.org](https://nodejs.org/en/download) and run it. Or, in PowerShell: `winget install OpenJS.NodeJS.LTS` |
-| **macOS** | Download the **LTS** installer from [nodejs.org](https://nodejs.org/en/download). Or, with Homebrew: `brew install node` |
-| **Linux** | Ubuntu 24.04 or Debian 12: `sudo apt install nodejs npm`. Fedora: `sudo dnf install nodejs`. Arch: `sudo pacman -S nodejs npm` |
-
-To check, open a **new** terminal and run `node --version`: it should print `v18` or higher. If your Linux distribution ships an older version, follow the commands for your system on [nodejs.org/en/download](https://nodejs.org/en/download).
-
-### 2. Get Chaos Lab
-
-- **Without Git:** click the green **Code** button at the top of this page, choose **Download ZIP**, then unzip it.
-- **With Git:** `git clone https://github.com/yahyabmo/the-double-pendulum.git`
-
-### 3. Start it
-
-| System | What to do |
-| --- | --- |
-| **Windows** | Double-click `start.bat` in the folder. |
-| **macOS** | Double-click `start.command` in the folder. |
-| **Linux** | Open a terminal in the folder and run `./start.sh` |
-
-The first launch installs the dependencies, which takes about a minute. Chaos Lab then opens in your browser at <http://localhost:5190>. Later launches take a few seconds. To stop it, close the terminal window, or press <kbd>Ctrl</kbd>+<kbd>C</kbd> in it.
-
-From a terminal, the same thing works on every system:
+**Linux**, in a terminal:
 
 ```bash
-cd the-double-pendulum
-npm install
-npm start
+curl -fsSL https://raw.githubusercontent.com/yahyabmo/the-double-pendulum/main/install-linux.sh | bash
 ```
+
+**Windows**, in CMD or PowerShell:
+
+```bat
+powershell -c "irm https://raw.githubusercontent.com/yahyabmo/the-double-pendulum/main/install-windows.bat | iex"
+```
+
+Rather not type a command? Download the project (green **Code** button, then **Download ZIP**) and unzip it. On Windows, double-click `install-windows.bat`. On Linux, right-click `install-linux.sh` and choose **Run as a Program**.
+
+The first installation takes about a minute, then Chaos Lab opens in your browser.
+
+## Launch
+
+Double-click the **Chaos Lab** shortcut on your desktop, or run:
+
+**Linux**, in a terminal:
+
+```bash
+~/.local/share/chaos-lab/launch.sh
+```
+
+**Windows**, in CMD:
+
+```bat
+"%LOCALAPPDATA%\chaos-lab\launch.cmd"
+```
+
+Chaos Lab opens at <http://localhost:5190>. Add `--stop` to the command to stop it.
 
 ### If something goes wrong
 
 | Problem | Fix |
 | --- | --- |
-| `node` is not recognized, or "Node.js is not installed" | Install Node.js (step 1), then open a **new** terminal or window and try again. |
-| "Node.js is too old" | Install the LTS version from [nodejs.org](https://nodejs.org/en/download). |
 | Windows shows "Windows protected your PC" | Click **More info**, then **Run anyway**. |
-| macOS says the file cannot be opened | Open **System Settings → Privacy & Security**, click **Open Anyway**, then double-click again. Or run `./start.sh` from Terminal. |
-| Linux or macOS says "permission denied" | Run `chmod +x start.sh start.command` once in the folder. |
-| "Port 5190 is already in use" | Chaos Lab is probably already running: close the other window. Or start it on another port: `npm start -- --port 5191` |
+| Linux offers no **Run as a Program** | Open a terminal in the folder and run `bash install-linux.sh` |
+| On Ubuntu, the desktop shortcut does not start | Right-click it, then **Allow Launching**. |
+| "Port 5190 is used by another program" | Close that program, then open Chaos Lab again. |
 | The browser did not open | Open <http://localhost:5190> yourself. |
+
+To uninstall Chaos Lab, run `~/.local/share/chaos-lab/uninstall.sh` on Linux, or `"%LOCALAPPDATA%\chaos-lab\uninstall.cmd"` in CMD on Windows.
 
 ## Screenshots
 
@@ -122,7 +123,7 @@ npm test
 npm run build    # static site in dist/
 ```
 
-The site runs locally. `.github/workflows/ci.yml` runs the tests and the build on every push.
+The site runs locally. On every push, `.github/workflows/ci.yml` runs the tests and the build, and `.github/workflows/installers.yml` installs Chaos Lab on Linux and on Windows, then uninstalls it.
 
 ## Roadmap
 
